@@ -23,10 +23,14 @@ void initialize() {
   reset();
 }
 
+/**
+ * Reset the entire game
+ */
 void reset() {
   clearScreens();
   addScreen("MainLevel", new MainLevel(4*width, height));  
 }
+
 
 /**
  * Our "empty" level is a single layer
@@ -39,10 +43,11 @@ class MainLevel extends Level {
     addLevelLayer("main layer", new MainLevelLayer(this));
     setViewBox(0,0,screenWidth,screenHeight);
     // And of course some background music!
-    SoundManager.load(this, "audio/bg/Overworld.mp3");
+    SoundManager.load(this, "audio/bg/theme_major_tom.mp3");
     SoundManager.play(this);
   }
 }
+
 
 /**
  * Our main level layer has a background
@@ -77,7 +82,7 @@ class MainLevelLayer extends LevelLayer {
     mario = new Mario();
     mario.setPosition(32, height-64);
     addPlayer(mario);
-
+    
     // add a few slanted hills
     addSlant(256, height-48);
     addSlant(1300, height-48);
@@ -99,9 +104,6 @@ class MainLevelLayer extends LevelLayer {
 
     addBoundary(new Boundary(-31 + 19*32,height,-31 + 19*32,height-48));
     addGround("ground", -31 + 19*32,height-48, width+32,height);
-
-    // add decorative foreground bushes
-    addBushes();
 
     // add some ground platforms    
     addGroundPlatform("ground", 928, height-224, 96, 112);
@@ -149,57 +151,6 @@ class MainLevelLayer extends LevelLayer {
     groundslant.setPosition(x, y);
     addBackgroundSprite(groundslant);
     addBoundary(new Boundary(x, y + 48 - groundslant.height, x + 48, y - groundslant.height));
-  }
-
-  // add some mario-style bushes
-  void addBushes() {
-    // one bush, composed of four segmetns (sprites 1, 3, 4 and 5)
-    int[] bush = {
-      1, 3, 4, 5
-    };
-    for (int i=0, xpos=0, end=bush.length; i<end; i++) {
-      Sprite sprite = new Sprite("graphics/backgrounds/bush-0"+bush[i]+".gif");
-      xpos += sprite.width;
-      sprite.align(CENTER, BOTTOM);
-      sprite.setPosition(116 + xpos, height-48);
-      addForegroundSprite(sprite);
-    }
-
-    // two bush, composed of eight segments
-    bush = new int[] {
-      1, 2, 4, 2, 3, 4, 2, 5
-    };
-    for (int i=0, xpos=0, end=bush.length; i<end; i++) {
-      Sprite sprite = new Sprite("graphics/backgrounds/bush-0"+bush[i]+".gif");
-      xpos += sprite.width;
-      sprite.align(CENTER, BOTTOM);
-      sprite.setPosition(384 + xpos, height-48);
-      addForegroundSprite(sprite);
-    }
-
-    // three bush
-    bush = new int[] {
-      1, 3, 4, 5
-    };
-    for (int i=0, xpos=0, end=bush.length; i<end; i++) {
-      Sprite sprite = new Sprite("graphics/backgrounds/bush-0"+bush[i]+".gif");
-      xpos += sprite.width;
-      sprite.align(CENTER, BOTTOM);
-      sprite.setPosition(868 + xpos, height-48);
-      addForegroundSprite(sprite);
-    }
-
-    // four bush
-    bush = new int[] {
-      1, 2, 4, 3, 4, 5
-    };
-    for (int i=0, xpos=0, end=bush.length; i<end; i++) {
-      Sprite sprite = new Sprite("graphics/backgrounds/bush-0"+bush[i]+".gif");
-      xpos += sprite.width;
-      sprite.align(CENTER, BOTTOM);
-      sprite.setPosition(1344 + xpos, height-48);
-      addForegroundSprite(sprite);
-    }
   }
 
   /**
@@ -264,8 +215,6 @@ class MainLevelLayer extends LevelLayer {
     addTrigger(new KoopaTrigger(412,0,5,height, 350, height-64, -0.2, 0));
     addTrigger(new KoopaTrigger(562,0,5,height, 350, height-64, -0.2, 0));
     addTrigger(new KoopaTrigger(916,0,5,height, 350, height-64, -0.2, 0));
-    // when tripped, release a banzai bill!
-    addTrigger(new BanzaiBillTrigger(1446,310,5,74, 400, height-84, -6, 0));
   }
 
   void draw() {
@@ -278,8 +227,14 @@ class MainLevelLayer extends LevelLayer {
   }
 }
 
+
+//////////////
+//  ACTORS  //
+//////////////
+
+
 /**
- * Our dapper hero
+ * Our dapper mustachioed hero
  */
 class Mario extends Player {
   
@@ -303,26 +258,26 @@ class Mario extends Player {
    */
   void setStates() {
     // idling state
-    addState(new State("idle", "graphics/mario/small/Standing-mario.gif"));
+    addState(new State("idle", "graphics/mario/small/Jumping-mario.gif"));
 
     // running state
     addState(new State("running", "graphics/mario/small/Running-mario.gif", 1, 4));
 
     // dead state O_O
-    State dead = new State("dead", "graphics/mario/small/Dead-mario.gif", 1, 2);
+    State dead = new State("dead", "graphics/mario/small/Jumping-mario.gif");
     dead.setAnimationSpeed(0.25);
     dead.setDuration(100);
     addState(dead);   
-    SoundManager.load(dead, "audio/Dead mario.mp3");
+    SoundManager.load(dead, "audio/die.mp3");
     
     // jumping state
     State jumping = new State("jumping", "graphics/mario/small/Jumping-mario.gif");
     jumping.setDuration(15);
     addState(jumping);
-    SoundManager.load(jumping, "audio/Jump.mp3");
+    SoundManager.load(jumping, "audio/jumpMEH.mp3");
 
     // victorious state!
-    State won = new State("won", "graphics/mario/small/Standing-mario.gif");
+    State won = new State("won", "graphics/mario/small/Jumping-mario.gif");
     won.setDuration(240);
     addState(won);
 
@@ -452,8 +407,9 @@ class Mario extends Player {
   }
 }
 
+
 /**
- * Our main enemy
+ * Our main enemy in this game
  */
 class Koopa extends Interactor {
 
@@ -509,6 +465,7 @@ class Koopa extends Interactor {
   }
 }
 
+
 /**
  * The muncher plant. To touch it is to lose.
  */
@@ -534,46 +491,11 @@ class Muncher extends Interactor {
   }
 }
 
-/**
- * The big bullet that comes out of nowhere O_O
- */
-class BanzaiBill extends Interactor {
 
-  /**
-   * Relatively straight-forward constructor
-   */
-  BanzaiBill(float mx, float my) {
-    super("Banzai Bill", 1, 1);
-    setPosition(mx, my);
-    setImpulse(-0.5, 0);
-    setForces(0, 0);
-    setAcceleration(0, 0);
-    setupStates();
-    // Banzai Bills do not care about boundaries or NPCs!
-    setPlayerInteractionOnly(true);
-  }
+/////////////////
+//   PICKUPS   //
+/////////////////
 
-  /**
-   * Banzai bill flies with great purpose.
-   */
-  void setupStates() {
-    State flying = new State("flying", "graphics/enemies/Banzai-bill.gif");
-    SoundManager.load(flying, "audio/Banzai.mp3");
-    addState(flying);
-    setCurrentState("flying");
-    SoundManager.play(flying);
-  }
-
-  /**
-   * When we hit an actor, they die.
-   */
-  void overlapOccurredWith(Actor other, float[] overlap) {
-    super.overlapOccurredWith(other, overlap);
-    if (other instanceof Mario) {
-      ((Mario)other).die();
-    }
-  }
-}
 
 /**
  * All pickups in Mario may move, and if
@@ -592,6 +514,7 @@ class MarioPickup extends Pickup {
   }
 }
 
+
 /**
  * A regular coin
  */
@@ -605,6 +528,7 @@ class Coin extends MarioPickup {
   }
 }
 
+
 /**
  * A dragon coin!
  */
@@ -617,6 +541,7 @@ class DragonCoin extends MarioPickup {
     SoundManager.play(this);
   }
 }
+
 
 /**
  * The finish line is also a pickup,
@@ -643,6 +568,12 @@ class Rope extends MarioPickup {
   }
 }
 
+
+////////////////
+//  TRIGGERS  //
+////////////////
+
+
 /**
  * triggers a koopa trooper 350px to the right
  */
@@ -660,28 +591,6 @@ class KoopaTrigger extends Trigger {
     if (fx>0) { 
       k.setHorizontalFlip(true);
     }
-    layer.addInteractor(k);
-    // remove this trigger so that it's not repeated
-    removeTrigger();
-  }
-}
-
-
-/**
- * triggers a Banzai Bill!
- */
-class BanzaiBillTrigger extends Trigger {
-  float kx, ky, fx, fy;
-  BanzaiBillTrigger(float x, float y, float w, float h, float _kx, float _ky, float _fx, float _fy) {
-    super("banzai bill", x, y, w, h);
-    kx = _kx;
-    ky = _ky;
-    fx = _fx;
-    fy = _fy;
-  }
-  void run(LevelLayer layer, Actor actor, float[] intersection) {
-    BanzaiBill k = new BanzaiBill(x+kx, ky);
-    k.setImpulse(fx, fy);
     layer.addInteractor(k);
     // remove this trigger so that it's not repeated
     removeTrigger();

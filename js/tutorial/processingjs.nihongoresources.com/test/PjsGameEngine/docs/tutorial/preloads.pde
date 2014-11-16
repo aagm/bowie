@@ -39,6 +39,7 @@ void addScreen(String name, Screen screen) {
                   graphics/backgrounds/bush-03.gif,
                   graphics/backgrounds/bush-04.gif,
                   graphics/backgrounds/bush-05.gif,
+                  graphics/backgrounds/stone.gif,
 
                   graphics/backgrounds/cave-corner-left.gif,
                   graphics/backgrounds/cave-corner-right.gif,
@@ -98,6 +99,5 @@ void addScreen(String name, Screen screen) {
                   graphics/mario/small/Jumping-mario.gif,
                   graphics/mario/small/Looking-mario.gif,
                   graphics/mario/small/Running-mario.gif,
-                  graphics/mario/small/Spinning-mario.gif,
                   graphics/mario/small/Standing-mario.gif,
                   graphics/mario/small/Winner-mario.gif"; */

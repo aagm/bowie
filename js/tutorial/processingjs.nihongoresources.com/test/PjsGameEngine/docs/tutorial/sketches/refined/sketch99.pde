@@ -940,7 +940,7 @@ class MarioLayer extends LevelLayer {
       1, 3, 4, 5
     };
     for (int i=0, xpos=0, end=bush.length; i<end; i++) {
-      Sprite sprite = new Sprite("graphics/backgrounds/bush-0"+bush[i]+".gif");
+      Sprite sprite = new Sprite("graphics/backgrounds/stone.gif");
       xpos += sprite.width;
       sprite.align(CENTER, BOTTOM);
       sprite.setPosition(116 + xpos, height-48);
@@ -952,7 +952,7 @@ class MarioLayer extends LevelLayer {
       1, 2, 4, 2, 3, 4, 2, 5
     };
     for (int i=0, xpos=0, end=bush.length; i<end; i++) {
-      Sprite sprite = new Sprite("graphics/backgrounds/bush-0"+bush[i]+".gif");
+      Sprite sprite = new Sprite("graphics/backgrounds/stone.gif");
       xpos += sprite.width;
       sprite.align(CENTER, BOTTOM);
       sprite.setPosition(384 + xpos, height-48);
@@ -964,7 +964,7 @@ class MarioLayer extends LevelLayer {
       1, 3, 4, 5
     };
     for (int i=0, xpos=0, end=bush.length; i<end; i++) {
-      Sprite sprite = new Sprite("graphics/backgrounds/bush-0"+bush[i]+".gif");
+      Sprite sprite = new Sprite("graphics/backgrounds/stone.gif");
       xpos += sprite.width;
       sprite.align(CENTER, BOTTOM);
       sprite.setPosition(868 + xpos, height-48);
@@ -976,7 +976,7 @@ class MarioLayer extends LevelLayer {
       1, 2, 4, 3, 4, 5
     };
     for (int i=0, xpos=0, end=bush.length; i<end; i++) {
-      Sprite sprite = new Sprite("graphics/backgrounds/bush-0"+bush[i]+".gif");
+      Sprite sprite = new Sprite("graphics/backgrounds/stone.gif");
       xpos += sprite.width;
       sprite.align(CENTER, BOTTOM);
       sprite.setPosition(1344 + xpos, height-48);
