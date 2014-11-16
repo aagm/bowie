@@ -556,8 +556,9 @@ class Rope extends MarioPickup {
     s.setNoRotation(true);
     // s.addPathLine(0, 0, 1, 1, 0, 0, -116, 1, 1, 0, 50);
     // s.addPathLine(0, -116, 1, 1, 0, 0, 0, 1, 1, 0, 50);
-    s.setLooping(true);
-    SoundManager.load(this, "audio/bg/David Bowie - Space Oddity [8-bit].mp3");
+    // s.setLooping(true);
+    SoundManager.load(this, "audio/bg/space_oddity.mp3");
+    setTimeout(console.log('test'), 20000);
   }
 
   void pickedUp() {
