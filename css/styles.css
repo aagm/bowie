@@ -30,7 +30,7 @@ article {
 h1 {
 	font-size: 70px;
 	color: white;
-	text-shadow: 5px 5px 5px rgba(0,250,0,0.7);
+	text-shadow: 5px 5px 0px rgba(0,250,0,0.7);
 	width: 500px;
 	box-sizing: border-box;
 }

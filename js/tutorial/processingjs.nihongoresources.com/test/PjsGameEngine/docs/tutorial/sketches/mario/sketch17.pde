@@ -117,7 +117,7 @@ class MainLevelLayer extends LevelLayer {
     addGroundPlatform("ground", 1442+64, height-96, 128, 48);
     
     // mystery coins
-    addForPlayerOnly(new DragonCoin(352,height-164));
+    addForPlayerOnly(new DragonCoin(1000,height-254));
 
     // Let's also add a koopa on one of the slides
     Koopa koopa = new Koopa(264, height-178);
@@ -199,12 +199,12 @@ class MainLevelLayer extends LevelLayer {
     Sprite goal_b = new Sprite("graphics/assorted/Goal-back.gif");
     goal_b.align(CENTER, BOTTOM);
     goal_b.setPosition(xpos, hpos);
-    addBackgroundSprite(goal_b);
+    // addBackgroundSprite(goal_b);
     // foreground post
     Sprite goal_f = new Sprite("graphics/assorted/Goal-front.gif");
     goal_f.align(CENTER, BOTTOM);
     goal_f.setPosition(xpos+32, hpos);
-    addForegroundSprite(goal_f);
+    // addForegroundSprite(goal_f);
     // the finish line rope
     addForPlayerOnly(new Rope(xpos, hpos-16));
   }
@@ -426,13 +426,13 @@ class Koopa extends Interactor {
    */
   void setStates() {
     // walking state
-    State walking = new State("idle", "graphics/enemies/Red-koopa-walking.gif", 1, 2);
+    State walking = new State("idle", "graphics/enemies/basura.gif", 1, 1);
     walking.setAnimationSpeed(0.12);
     SoundManager.load(walking, "audio/Squish.mp3");
     addState(walking);
     
     // if we get squished, we first get naked...
-    State naked = new State("naked", "graphics/enemies/Naked-koopa-walking.gif", 1, 2);
+    State naked = new State("naked", "graphics/enemies/basura.gif", 1, 1);
     naked.setAnimationSpeed(0.12);
     SoundManager.load(naked, "audio/Squish.mp3");
     addState(naked);
@@ -478,7 +478,7 @@ class Muncher extends Interactor {
   }
 
   void setupStates() {
-    State munch = new State("munch","graphics/enemies/Muncher.gif", 1, 2);
+    State munch = new State("munch","graphics/enemies/basura.gif", 1, 1);
     munch.setAnimationSpeed(0.20);
     addState(munch);
   }
@@ -534,7 +534,7 @@ class Coin extends MarioPickup {
  */
 class DragonCoin extends MarioPickup {
   DragonCoin(float x, float y) {
-    super("Dragon coin", "graphics/assorted/Dragon-coin.gif", 1, 10, x, y, true);
+    super("Dragon coin", "graphics/assorted/flor_1.gif", 1, 1, x, y, true);
     SoundManager.load(this, "audio/Dragon coin.mp3");
   }
   void pickedUp() { 
@@ -550,14 +550,14 @@ class DragonCoin extends MarioPickup {
  */
 class Rope extends MarioPickup {
   Rope(float x, float y) {
-    super("Finish line", "graphics/assorted/Goal-slider.gif", 1, 1, x, y, true);
+    super("Finish line", "graphics/assorted/nave-1.gif", 1, 1, 1880, 320, true);
     Sprite s = getState("Finish line").sprite;
     s.align(LEFT, TOP);
     s.setNoRotation(true);
-    s.addPathLine(0, 0, 1, 1, 0, 0, -116, 1, 1, 0, 50);
-    s.addPathLine(0, -116, 1, 1, 0, 0, 0, 1, 1, 0, 50);
+    // s.addPathLine(0, 0, 1, 1, 0, 0, -116, 1, 1, 0, 50);
+    // s.addPathLine(0, -116, 1, 1, 0, 0, 0, 1, 1, 0, 50);
     s.setLooping(true);
-    SoundManager.load(this, "audio/bg/Course-clear.mp3");
+    SoundManager.load(this, "audio/bg/David Bowie - Space Oddity [8-bit].mp3");
   }
 
   void pickedUp() {
